@@ -1,0 +1,98 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/easyAutoComplete/easy-autocomplete_bora.css' %}"/>
+<!-- <link rel="stylesheet" href="{% static 'css/easyAutoComplete/easy-autocomplete.themes.css' %}"/> -->
+<script src="{% static 'js/easyAutoComplete/jquery.easy-autocomplete.js' %}"></script>
+
+<form action="" method="POST" autocomplete="off"> {% csrf_token %}
+  <!-- <form class="form-inline"> -->
+    <!-- <div class="form-group mb-2 ">
+            <label for="ticker_input">Hisse Adı:</label>
+            <input type="text" class=" " id="ticker_input" placeholder="Hisse Kodu" name="ticker" value="{{ticker}}">
+            <button type="submit" class="btn btn-dark " value="" >Analiz Et</button>-->
+    <div class="container-fluid">
+    <div class="row">
+      <h6 class="col-sm-1" name="ticker_code"><span class="badge badge-primary">{{ ticker_code }}</span></h6>
+      <h6 class="col-sm-11" name="ticker_name">{{ ticker_name }}</h6>
+      <input id="basics" readonly class="border border-3 col-sm-9 d-none" placeholder="{{ ticker_name }}" name="ticker_name" /> 
+      <input id="code" readonly class="border border-3 col-sm-3 d-none" placeholder="{{ ticker_code }}" name="ticker_code" /> 
+    </div>
+  </div>
+    <div class="input-group mb-3 ml-1 mt-1 ">
+      <input id="provider-json" type="text" class="form-control" placeholder="Hisse Kodu" aria-label="Hisse Kodu" aria-describedby="button-addon2" name="ticker" />
+      <div class="input-group-append">
+        <button class="btn btn-outline-primary" type="submit" id="button-addon2"  data-toggle="tooltip" data-placement="top" title="Lütfen Hisse Seçiniz" name=btn_ticker>Analiz Et</button>
+      </div>
+    </div>
+
+    
+    <div class="badge badge-danger" role="alert" name='alert'>
+      {{alert}}
+    </div>   
+  
+    <!-- {% if request.method == "POST" and ticker is none %}
+    <div class="alert alert-primary" role="alert" name='alert'>
+      {{alert}}
+    </div>
+   {% endif %} -->
+
+  
+    <script src="{% static 'js/easyAutoComplete.js' %}"></script>
+    <script src="{% static 'js/tooltip.js' %}"></script>
+    <!--  </div> -->
+  <!-- </form> -->
+  <div class=" table-responsive-lg font-weight-light">
+    <table class="table table-hover table-dark table-bordered ml-1 p-3" style="max-width: 210px" >
+      <tbody>
+        <tr>
+          <th scope="col align-middle">Hisse Adı:</th>
+          <td class="col font-weight-bold text-uppercase align-middle ">
+            {{ str_ticker }}
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Trade Önerisi:</th>
+          {% if recommendation == "AL" or recommendation == "Yeni Zirve Arayışı" %}
+          <td
+            class="text-success font-weight-bold text-capitalize align-middle" >
+            {{ recommendation }}
+          </td>
+          {% else %}
+          <td class="text-danger font-weight-bold text-capitalize align-middle">
+            {{ recommendation }}
+          </td>
+          {% endif %}
+        </tr>
+        <tr>
+          <th scope="row align-middle">Kazanma Potansiyeli:</th>
+          <td class="font-weight-bold align-middle">
+            {{ str_earn_potential }}
+          </td>
+        </tr>
+        <tr>
+          <th scope="row align-middle">Kaybetme Potansiyeli:</th>
+          <td class="font-weight-bold align-middle">
+            {{ str_loss_potential }}
+          </td>
+        </tr>
+        <tr>
+          <th scope="row align-middle">Son Fiyat:</th>
+          <td class="font-weight-bold align-middle">
+            {{ str_lastPrice }}
+          </td>
+        </tr>
+        <tr>
+          <th scope="row align-middle">Hedef Satış Fiyatı:</th>
+          <td class="font-weight-bold align-middle">
+            {{ str_target_SalePrice }}
+          </td>
+        </tr>
+        <tr>
+          <th scope="row align-middle">Zarar-Kes Fiyatı:</th>
+          <td class="font-weight-bold align-middle">
+            {{ str_stopLoss }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>
